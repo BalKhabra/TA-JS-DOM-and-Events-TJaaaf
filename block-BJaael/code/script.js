@@ -1,26 +1,61 @@
+function getRandomNumber(max){
+    return Math.floor(Math.random() * max);
+}
 
-const container = document.getElementById("container");
+function generateRandomColor() {
+    let hexCharacters = [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+    ];
+    
+    let color = "#";
 
-function makeRows(rows, cols) {
-  container.style.setProperty('--grid-rows', rows);
-  container.style.setProperty('--grid-cols', cols);
-  for (c = 0; c < (rows * cols); c++) {
-    let cell = document.createElement("div");
-    cell.innerText = (c + 1);
-    container.appendChild(cell).className = "grid-item";
-  };
-};
+    for (let i = 0; i < 6; i++) {
+        let randomNumber = getRandomNumber(16)
+        color = color + hexCharacters[randomNumber];
+    }
 
-makeRows(20, 20);
+    return color;
+}
+console.log(generateRandomColor())
+console.log(generateRandomColor())
 
-let grid = document.querySelector(".container")
-let i = 0;
+let parentBox = document.querySelector(".boxes")
 
-const colors1 = ['red', 'green', 'blue', 'purple'];
 
-grid.addEventListener('mousemove', function onMouseMove() {
-    grid.style.backgroundColor = colors1[i];
-    grid.style.color = 'white';
-  
-    i = i >= colors1.length - 1 ? 0 : i + 1;
-  });
+for(let i = 0; i < 500; i++) {
+    let div = document.createElement("div");
+    div.classList.add('box');
+
+    let h3 = document.createElement("h3");
+    let randomNo = getRandomNumber(500);
+    h3.innerText = randomNo;
+
+    div.append(h3)
+    parentBox.append(div)
+}
+
+let allBoxes = document.querySelectorAll(".box")
+function handleMouseMove(){
+    allBoxes.forEach((box) => {
+        box.style.backgroundColor = generateRandomColor
+        box.children[0].innerText = getRandomNumber(500)
+    });
+}
+
+parentBox.addEventListener("mousemove", handleMouseMove);
+
