@@ -1,29 +1,22 @@
-let display = document.getElementById('display');
+let display = document.querySelector('.display');
+let allBts = document.querySelectorAll("button");
 
-let buttons = Array.from(document.getElementsByClassName('button'));
+let initialValue = 0
 
+function handleBtnClick(event) {
+if (event.target.classList.contains('equal')){
+    display.innerText = eval(display.innerText)
+    return;
+    }
+    if (event.target.classList.contains('clear')){
+        display.innerText = initialValue
+        return;
+}
+display.innerText += event.target.innerText;
+}
 
-
-buttons.map( button => {
-    button.addEventListener('click', (e) => {
-        switch(e.target.innerText){
-            case 'C':
-                display.innerText = '';
-                break;
-            case '=':
-                try{
-                    display.innerText = eval(display.innerText);
-                } catch {
-                    display.innerText = "Error"
-                }
-                break;
-            case '←':
-                if (display.innerText){
-                   display.innerText = display.innerText.slice(0, -1);
-                }
-                break;
-            default:
-                display.innerText += e.target.innerText;
-        }
-    });
+allBts.forEach((btn) => {
+    btn.addEventListener("click", handleBtnClick);
 });
+
+display.innerText = initialValue;
